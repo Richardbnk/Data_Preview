@@ -24,7 +24,7 @@ def cb_show_value(df):
     else:
         st.dataframe(df)
 
-        st.write(df.describe())
+    st.write(df.describe())
 
 
 def plot_chart(df, column_x=None, column_y=None):

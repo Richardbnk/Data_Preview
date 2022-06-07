@@ -1,7 +1,7 @@
 """
 # Developer: Richard Raphael Banak
 # Objective: Dashboard using streamlit to help Data Science table visualization
-# Creation date: 2020-01-02
+# Creation date: 2022-06-06
 
 Run code: streamlit run main.py
 """
@@ -24,6 +24,17 @@ def cb_show_value(df):
     else:
         st.dataframe(df)
 
+        st.write(df.describe())
+
+
+def plot_chart(df, column_x=None, column_y=None):
+    # plot Scatter chart
+    if cb_type_graph == "Scatter":
+        st.subheader("Scatter Chart")
+        fig = plt.figure()
+        plt.scatter(data=df, x=column_x, y=column_y)
+        st.pyplot(fig)
+
 
 def main():
     global cb_value
@@ -32,20 +43,21 @@ def main():
     global cb_plotar_grafico
     global cb_corr
     global cb_type_graph
+    global file_path
 
-    st.title("Data view Dashboard")
+    st.title("Data vizualization")
 
     st.sidebar.title("Menu")
 
-    file_path = st.sidebar.file_uploader(
-        label="Select dataframe file", type=["csv", "xlsx"]
-    )
+    file_path = st.sidebar.file_uploader(label="Select dataframe file", type=["csv"])
+    if file_path:
+        if file_path.name.endswith(".csv"):
+            text_separator = st.sidebar.text_input("Separator", ",")
 
     cb_value = st.sidebar.checkbox("Show dataframe values")
     cb_flag_null = st.sidebar.checkbox("Flag null values")
-    cb_info = st.sidebar.checkbox("Show dataframe info")
-    cb_plotar_grafico = st.sidebar.checkbox("Plot Chart")
     cb_corr = st.sidebar.checkbox("Show correlation heatmap")
+    cb_plotar_grafico = st.sidebar.checkbox("Plot Chart")
 
     cb_type_graph = st.sidebar.selectbox(
         "Select graph type",
@@ -57,8 +69,9 @@ def main():
         # st.markdown("Selecionar arquivo no menu lateral")
 
     else:
+        if file_path.name.endswith(".csv"):
+            df = pd.read_csv(filepath_or_buffer=file_path, sep=text_separator)
 
-        df = pd.read_csv(filepath_or_buffer=file_path)
         numeric_columns = df.select_dtypes(include=["int64", "float64"]).columns
 
         column_x = st.sidebar.selectbox("Choose axis column X", numeric_columns)
@@ -67,18 +80,10 @@ def main():
         # show dataframe values
         if cb_value:
             cb_show_value(df)
-        # show describe dataframe
-        if cb_info:
-            st.markdown("### Describe")
-            st.write(df.describe())
 
         # plot chart
         if cb_plotar_grafico:
-            if cb_type_graph == "Scatter":
-                st.subheader("Scatter Chart")
-                fig = plt.figure()
-                plt.scatter(data=df, x=column_x, y=column_y)
-                st.pyplot(fig)
+            plot_chart(df, column_x, column_y)
 
         # show correlation heatmap
         if cb_corr:

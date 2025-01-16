@@ -1,11 +1,3 @@
-# data_preview
-Dashboard for Data Science table visualization
-
-
-
-
-
-
 # Data Preview Tool
 
 ## Python package for data preview for data science using streamlit library in python

@@ -1,6 +1,6 @@
 # Data Preview Tool
 
-## Python package for data preview for data science using streamlit library in python
+## An interactive Streamlit-based dashboard for data scientists to preview, analyze, and visualize datasets quickly, supporting file uploads, summary statistics, and basic data cleaning.
 
 ### Author
 

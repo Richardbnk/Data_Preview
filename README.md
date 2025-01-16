@@ -19,13 +19,13 @@ Name: Richard Raphael Banak
 To install the package, use the following command:
 
 ```
-pip install git+https://github.com/Richardbnk/data_preview/
+pip install git+https://github.com/Richardbnk/Data_Preview/
 ```
 
 To update your package, use the command:
 
 ```
-pip install --upgrade git+https://github.com/Richardbnk/data_preview/
+pip install --upgrade git+https://github.com/Richardbnk/Data_Preview/
 ```
 
 ### Requirements
